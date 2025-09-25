@@ -51,14 +51,14 @@ module gcd (
             end
             ACK_A: begin
             // Assert ACK for 1 cycle
-                if(req)
+                if(req) // Need this to wait for req to go low before proceeding to next state
                     ack = 1'b1;
                 else
                     next_state = WAIT_B;
             end
             WAIT_B: begin
             // Wait for 2nd req to be asserted, then sample AB to regB
-                if(req) begin
+                if(req) begin 
                     next_regB = AB;
                     next_state =  CHECK_A_NOT_ZERO;
                 end
@@ -125,7 +125,7 @@ module gcd (
             end
             DONE: begin
                 // Calculation done assert ack for one cycle
-                if(req)
+                if(req) // Need this to wait for req to go low before proceeding to next state
                     ack = 1'b1;
                 else
                     next_state = IDLE;
