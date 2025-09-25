@@ -9,8 +9,8 @@ module gcd (
     // Package containing ALU state enumeration
     import alu_pkg::*; 
 
-    typedef enum logic [3 : 0] {IDLE, ACK_A, WAIT_B, CHECK_A_NOT_ZERO, CHECK_B_NOT_ZERO, SUB_A_B, RESULT_SUB_A_B,
-                                SUB_B_A, RESULT_SUB_B_A, DONE} state_t;
+    typedef enum logic [2 : 0] {IDLE, ACK_A, WAIT_B, CHECK_A_NOT_ZERO, CHECK_B_NOT_ZERO, SUB_A_B,
+                                SUB_B_A, DONE} state_t;
 
     logic   [15:0]  regA, regB, next_regA, next_regB;
     state_t state, next_state;
@@ -88,11 +88,8 @@ module gcd (
             SUB_A_B: begin
             // Manipulate ALU to get A-B
                 aluFN_i = SUB_AB;
-                next_state = RESULT_SUB_A_B;
-            end
-            RESULT_SUB_A_B: begin
+
             // Determine next state based on ALU Flags
-                aluFN_i = SUB_AB;
                 if(aluN_o) begin
                     // If result negative change order of subtraction
                     next_state = SUB_B_A;
@@ -110,11 +107,8 @@ module gcd (
             SUB_B_A: begin
             // Manipulate ALU to get B-A
                 aluFN_i = SUB_BA;
-                next_state = RESULT_SUB_B_A;
-            end
-            RESULT_SUB_B_A: begin
+
             // Determine next state based on ALU Flags
-                aluFN_i = SUB_BA; // Make sure the ALU is still outputting B-A
                 if(aluN_o) begin
                     // If result negative change order of subtraction
                     next_state = SUB_A_B;
