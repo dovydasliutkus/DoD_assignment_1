@@ -10,6 +10,8 @@ module alu (
         case (FN)
             alu_pkg::SUB_AB: Y = A - B;
             alu_pkg::SUB_BA: Y = B - A;
+            alu_pkg::PASS_A: Y = A;
+            alu_pkg::PASS_B: Y = B;
             default: Y = 16'h0000;
         endcase
     end

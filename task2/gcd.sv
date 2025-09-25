@@ -9,7 +9,7 @@ module gcd (
     // Package containing ALU state enumeration
     import alu_pkg::*; 
 
-    typedef enum logic [2 : 0] {IDLE, ACK_A, WAIT_B, SUB_A_B, RESULT_SUB_A_B,
+    typedef enum logic [3 : 0] {IDLE, ACK_A, WAIT_B, CHECK_A_NOT_ZERO, CHECK_B_NOT_ZERO, SUB_A_B, RESULT_SUB_A_B,
                                 SUB_B_A, RESULT_SUB_B_A, DONE} state_t;
 
     logic   [15:0]  regA, regB, next_regA, next_regB;
@@ -60,10 +60,30 @@ module gcd (
             // Wait for 2nd req to be asserted, then sample AB to regB
                 if(req) begin
                     next_regB = AB;
+                    next_state =  CHECK_A_NOT_ZERO;
+                end
+            end
+            // If A is zero put B in regA and go to DONE (If one input zero GCD is always the other value)
+            CHECK_A_NOT_ZERO: begin
+                aluFN_i = PASS_A;
+                if(aluZ_o) begin
+                    next_state = DONE;
+                    next_regA = regB;
+                end
+                else begin
+                    next_state = CHECK_B_NOT_ZERO;
+                end
+            end
+            // If B is zero go to DONE
+            CHECK_B_NOT_ZERO: begin
+                aluFN_i = PASS_B;
+                if(aluZ_o) begin
+                    next_state = DONE;
+                end
+                else begin
                     next_state = SUB_A_B;
                 end
             end
-
 // TODO Skip this state because SUB_AB is default FN if alu
             SUB_A_B: begin
             // Manipulate ALU to get A-B
