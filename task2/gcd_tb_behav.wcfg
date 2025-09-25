@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="gcd_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="alu_pkg" />
+            <top_module name="gcd_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="2,749.536 ns"></ZoomStartTime>
+      <ZoomEndTime time="3,005.566 ns"></ZoomEndTime>
+      <Cursor1Time time="2,930.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="198"></NameColumnWidth>
+      <ValueColumnWidth column_width="260"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="14" />
+   <wvobject fp_name="/gcd_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/req" type="logic">
+      <obj_property name="ElementShortName">req</obj_property>
+      <obj_property name="ObjectShortName">req</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/AB" type="array">
+      <obj_property name="ElementShortName">AB[15:0]</obj_property>
+      <obj_property name="ObjectShortName">AB[15:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/ack" type="logic">
+      <obj_property name="ElementShortName">ack</obj_property>
+      <obj_property name="ObjectShortName">ack</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/regA" type="array">
+      <obj_property name="ElementShortName">regA[15:0]</obj_property>
+      <obj_property name="ObjectShortName">regA[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/regB" type="array">
+      <obj_property name="ElementShortName">regB[15:0]</obj_property>
+      <obj_property name="ObjectShortName">regB[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/C" type="array">
+      <obj_property name="ElementShortName">C[15:0]</obj_property>
+      <obj_property name="ObjectShortName">C[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/next_regA" type="array">
+      <obj_property name="ElementShortName">next_regA[15:0]</obj_property>
+      <obj_property name="ObjectShortName">next_regA[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/next_regB" type="array">
+      <obj_property name="ElementShortName">next_regB[15:0]</obj_property>
+      <obj_property name="ObjectShortName">next_regB[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/state" type="array">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/aluZ_o" type="logic">
+      <obj_property name="ElementShortName">aluZ_o</obj_property>
+      <obj_property name="ObjectShortName">aluZ_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/aluN_o" type="logic">
+      <obj_property name="ElementShortName">aluN_o</obj_property>
+      <obj_property name="ObjectShortName">aluN_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/gcd_tb/u_dut/u_alu/Y" type="array">
+      <obj_property name="ElementShortName">Y[15:0]</obj_property>
+      <obj_property name="ObjectShortName">Y[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>
