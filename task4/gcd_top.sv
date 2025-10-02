@@ -13,7 +13,6 @@ module gcd_struct (
     logic LDA, LDB;
     logic [1:0] FN;
     logic Z, N;
-    logic A_is_zero, B_is_zero;   // NEW flags
 
     // Debounce req input
     debounce db (
@@ -34,9 +33,7 @@ module gcd_struct (
         .AB        (AB),
         .C         (C),
         .Z         (Z),
-        .N         (N),
-        .A_is_zero (A_is_zero),   // NEW connection
-        .B_is_zero (B_is_zero)    // NEW connection
+        .N         (N)
     );
 
     // FSM Controller
@@ -44,9 +41,8 @@ module gcd_struct (
         .clk       (clk),
         .reset     (reset),
         .req       (db_req),
-        .A_is_zero (A_is_zero),   // NEW connection
-        .B_is_zero (B_is_zero),   // NEW connection
-        .aluN_o    (N),           // still need negative flag
+        .Z          (Z),
+        .N          (N),           // still need negative flag
         .ack       (ack),
         .LDA       (LDA),
         .LDB       (LDB),

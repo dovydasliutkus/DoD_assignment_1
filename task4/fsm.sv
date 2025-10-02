@@ -2,9 +2,8 @@ module fsm (
     input  logic        clk,
     input  logic        reset,
     input  logic        req,
-    input  logic        A_is_zero,   // NEW flag from datapath
-    input  logic        B_is_zero,   // NEW flag from datapath
-    input  logic        aluN_o,      // still need negative flag for subtraction
+    input  logic        Z,   // NEW flag from datapath
+    input  logic        N,      // still need negative flag for subtraction
     output logic        ack,
     output logic        LDA, LDB,
     output logic        ABorALU,
@@ -38,8 +37,8 @@ module fsm (
 
             IDLE: begin
                 if (req) begin
-                    LDA = 1;
-                    ABorALU = 1;   // load A from input
+                    LDA = 1;        // Enable register
+                    ABorALU = 1;    // Mux to AB
                     next_state = ACK_A;
                 end
             end
@@ -51,49 +50,28 @@ module fsm (
 
             WAIT_B: begin
                 if (req) begin
-                    LDB = 1;
-                    ABorALU = 1;   // load B from input
-                    next_state = CHECK_A_NOT_ZERO;
-                end
-            end
-
-            CHECK_A_NOT_ZERO: begin
-                if (A_is_zero) begin
-                    // if A=0, copy B into A and finish
-                    FN = 2'b11; // pass B
-                    LDA = 1;
-                    next_state = DONE;
-                end else begin
-                    next_state = CHECK_B_NOT_ZERO;
-                end
-            end
-
-            CHECK_B_NOT_ZERO: begin
-                if (B_is_zero) begin
-                    // if B=0, done (A already has GCD)
-                    next_state = DONE;
-                end else begin
+                    LDB = 1;        // Enable B register
+                    ABorALU = 1;    // Mux to AB
                     next_state = SUB_A_B;
                 end
             end
-
             SUB_A_B: begin
                 FN  = 2'b00; // A = A - B
-                if (A_is_zero) begin
+                if (Z) begin
                     next_state = DONE;
-                end else if (aluN_o) begin
+                end else if (N) begin
                     next_state = SUB_B_A;
                 end else begin
                     LDA = 1;
-                    next_state = CHECK_A_NOT_ZERO;
+                    next_state = SUB_A_B;
                 end
             end
 
             SUB_B_A: begin
                 FN  = 2'b01; // B = B - A
-                if (aluN_o) begin
+                if (N) begin
                     next_state = SUB_A_B;
-                end else if (B_is_zero) begin
+                end else if (Z) begin
                     next_state = DONE;
                 end else begin
                     LDB = 1;
@@ -114,8 +92,10 @@ module fsm (
 
     // State register
     always_ff @(posedge clk or posedge reset) begin
-        if (reset) state <= IDLE;
-        else       state <= next_state;
+        if (reset) 
+            state <= IDLE;
+        else       
+            state <= next_state;
     end
 
 endmodule

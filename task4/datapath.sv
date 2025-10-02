@@ -5,9 +5,7 @@ module datapath (
     input  logic        ABorALU,         // mux selects
     input  logic [15:0] AB,              // external input
     output logic [15:0] C,               // GCD result
-    output logic        Z, N,            // ALU flags
-    output logic        A_is_zero,       // NEW
-    output logic        B_is_zero        // NEW
+    output logic        Z, N            // ALU flags
 );
 
     // Internal wires
@@ -26,11 +24,6 @@ module datapath (
     c_alu alu (.A(A_out), .B(B_out), .fn(FN), .C(alu_Y), .Z(Z), .N(N));
 
     // Output result always comes from A (holds GCD at end)
-    c_buf bufo (.data_in(A_out), .data_out(C));
-    // Registered zero flags
-    always_ff @(posedge clk) begin
-        A_is_zero <= (A_out == 16'd0);
-        B_is_zero <= (B_out == 16'd0);
-    end
+    c_buf bufo (.data_in(mux_out), .data_out(C));
 
 endmodule
